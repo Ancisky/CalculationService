@@ -109,7 +109,7 @@ def train(prop, k_fold=5, test_size=0.2):
     metal_model = RidgeCV(alphas=(0.1, 1.0, 10.0, 100.0))
     # 3.stacking model
     stacking_model = StackingRegressor(
-        estimators=[('KNN', knn), ('', svr), ('', ridge), ('', mlp), ('', rf), ('', gbdt)],
+        estimators=[('KNN', knn), ('SVR', svr), ('Ridge', ridge), ('MLP', mlp), ('RF', rf), ('GBDT', gbdt)],
         final_estimator=metal_model,
         n_jobs=-1, cv=cv  # cross validation
     )

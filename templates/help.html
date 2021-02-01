@@ -2,16 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Help Page</title>
 </head>
 <body>
-    <p>
-        请求要求: 仅支持post请求，参数为json类型。具体格式如下
-        {
-            "Mg": 0.25,
-            "Cu": 0.36
-        }
-    </p>
+
+    <div>
+        <h2>计算接口一：</h2>
+        <p>地址：/cal/compute/</p>
+        <p>请求方法：POST，参数格式：json</p>
+        <pre>
+            {
+                "Mg": 0.25,      # 元素含量
+                "Cu": 0.36,
+                .....
+                "prop": "密度"    # 要计算的属性
+            }
+        </pre>
+        <p>响应结果格式</p>
+        <pre>
+            {
+                code: 1                     # 状态码，1-成功， 0失白， -1-请求驳回
+                data: 26.590038553949288    # 计算结果
+                msg: "Success"              # 提示消息
+            }
+        </pre>
+    </div>
 
 </body>
 </html>
