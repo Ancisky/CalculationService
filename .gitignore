@@ -1,0 +1,5 @@
+﻿.idea
+CalculationService/__pycache__
+*/__pycache__
+*/web/__pycache__
+__pycache__
