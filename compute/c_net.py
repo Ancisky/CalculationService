@@ -7,7 +7,7 @@ import os
 import sklearn
 from sklearn.model_selection import LeaveOneOut
 from sklearn.model_selection import train_test_split
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_score,cross_validate
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LinearRegression, RidgeCV
@@ -121,9 +121,10 @@ def train(prop, k_fold=5, test_size=0.2):
     # 5.train model(stacking模型，已经内置交叉验证)
     stacking_model.fit(x_train, y_train)
     # val-scores
-    mae_val = cross_val_score(stacking_model, x_train, y_train, scoring='neg_mean_absolute_error', cv=cv).mean()
-    mse_val = cross_val_score(stacking_model, x_train, y_train, scoring='neg_mean_squared_error', cv=cv).mean()
-    r2_val = cross_val_score(stacking_model, x_train, y_train, scoring='r2', cv=cv).mean()
+    result = cross_validate(stacking_model, x_train, y_train, scoring=['neg_mean_absolute_error','neg_mean_squared_error','r2'], cv=cv)
+    mae_val = result['test_neg_mean_absolute_error'].mean()
+    mse_val = result['test_neg_mean_squared_error'].mean()
+    r2_val = result['test_r2'].mean()
     # test-score
     pred = stacking_model.predict(x_test)
     mae_test = sklearn.metrics.mean_absolute_error(y_test, pred).mean()
